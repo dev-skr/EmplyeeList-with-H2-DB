@@ -55,23 +55,16 @@ public JdbcTemplate db;
     @Override
     public Employee putEmployee(int id, Employee employee){
         
-        Employee existingEmployee= getEmployee(id);
-        
         if(employee.getEmployeeName()!=null)
-        existingEmployee.setEmployeeName(employee.getEmployeeName());
+       db.update("update employeelist set employeeName=? where employeeId=?",employee.getEmployeeName(),id);
 
         if(employee.getEmail()!=null)
-       existingEmployee.setEmail(employee.getEmail());
+       db.update("update employeelist set email=? where employeeId=?",employee.getEmail(),id);
 
         if(employee.getDepartment()!=null)
-    existingEmployee.setDepartment(employee.getDepartment());
+       db.update("update employeelist set department=? where employeeId=?",employee.getDepartment(),id);
 
-
-    db.update("update employeelist set employeeName=?, email=?, department=? where employeeId=?",
-    existingEmployee.getEmployeeName(),existingEmployee.getEmail(),existingEmployee.getDepartment(),id);
-       
-       
-    return existingEmployee;
+    return getEmployee(id);
 
     }
 
